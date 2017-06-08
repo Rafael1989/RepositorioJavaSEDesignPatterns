@@ -27,11 +27,18 @@ public final class Negocio {
 	}
 
 	public Calendar getData() {
-		return data;
+		return (Calendar) this.data.clone();
 	}
 	
 	public double getVolume(){
 		return preco * quantidade;
+	}
+
+	public boolean isMesmoDia(Calendar outraData) {
+		//return this.data.equals(outraData); errado pois compara o timestamp, e hora diferente e mesmo dia é igual
+		return data.get(Calendar.DATE) == outraData.get(Calendar.DATE) && 
+				data.get(Calendar.MONTH) == outraData.get(Calendar.MONTH) &&
+				data.get(Calendar.YEAR) == outraData.get(Calendar.YEAR);
 	}
 
 }

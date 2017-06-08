@@ -14,12 +14,16 @@ public final class Candlestick {
 
 	public Candlestick(double abertura, double fechamento, double minimo,
 			double maximo, double volume, Calendar data) {
-		this.abertura = abertura;
-		this.fechamento = fechamento;
-		this.minimo = minimo;
-		this.maximo = maximo;
-		this.volume = volume;
-		this.data = data;
+		if(maximo >= minimo && data != null){
+			this.abertura = abertura;
+			this.fechamento = fechamento;
+			this.minimo = minimo;
+			this.maximo = maximo;
+			this.volume = volume;
+			this.data = data;
+		}else{
+			throw new IllegalArgumentException();
+		}
 	}
 
 	public double getAbertura() {
@@ -47,7 +51,7 @@ public final class Candlestick {
 	}
 	
 	public boolean isAlta(){
-		return this.abertura < this.fechamento;
+		return this.abertura <= this.fechamento;
 	}
 	
 	public boolean isBaixa(){
