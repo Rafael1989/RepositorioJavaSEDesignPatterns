@@ -3,10 +3,10 @@ package br.com.caelum.argentum.reader;
 import java.io.Reader;
 import java.util.List;
 
-import br.com.caelum.argentum.Negocio;
-
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import br.com.caelum.argentum.Negocio;
 
 public class LeitorXML {
 
