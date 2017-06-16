@@ -40,16 +40,15 @@ public class GeradorDeGrafico {
 	}
 	
 	public GeradorDeGrafico(List<Candle> candles){
-		OHLCDataItem[] data = null;
+		OHLCDataItem[] data = new OHLCDataItem[1000];
 		int posicao = 0;
 		for(Candle candle : candles){
 			OHLCDataItem ohlcDataItem = new OHLCDataItem(candle.getData().getTime(), candle.getAbertura(), candle.getMaximo(), candle.getMinimo(), candle.getFechamento(), candle.getVolume());
 			data[posicao] = ohlcDataItem;
 			posicao++;
 		}
-		Comparable cnull = null;
-		OHLCDataset dataset = new DefaultOHLCDataset(cnull, data);
-		ChartFactory.createCandlestickChart("Candle", "Data", "Valor", dataset, true);
+		OHLCDataset dataset = new DefaultOHLCDataset("S1", data);
+		this.grafico = ChartFactory.createCandlestickChart("Candle", "Data", "Valor", dataset, true);
 	}
 	
 	public void plotaIndicador(Indicador ind){

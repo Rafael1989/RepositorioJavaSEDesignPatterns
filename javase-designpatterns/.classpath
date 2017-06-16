@@ -3,10 +3,10 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/xstream-1.4.10.jar" sourcepath="C:/Users/Rafael/Desktop/xstream-distribution-1.4.10-src.zip"/>
 	<classpathentry kind="lib" path="lib/gnujaxp-1.0.0.jar" sourcepath="C:/Users/Rafael/Desktop/gnujaxp-1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart-1.0.14.jar" sourcepath="C:/Users/Rafael/Desktop/jfreecandlestickchart-example-code.zip"/>
 	<classpathentry kind="lib" path="lib/jcommon-1.0.23.jar" sourcepath="C:/Users/Rafael/Desktop/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="lib/xstream-1.4.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,11 +1,7 @@
 package br.com.caelum.argentum.reader;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.Reader;
-import java.io.StringReader;
 import java.util.List;
 
 import com.thoughtworks.xstream.XStream;
