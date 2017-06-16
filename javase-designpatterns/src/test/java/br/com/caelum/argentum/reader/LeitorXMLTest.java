@@ -2,6 +2,7 @@ package br.com.caelum.argentum.reader;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
 import java.io.StringReader;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import br.com.caelum.argentum.Negocio;
 public class LeitorXMLTest {
 
 	@Test
-	public void carregaXmlComUmNegocioEmListaUnitaria(){
+	public void carregaXmlComUmNegocioEmListaUnitaria() throws FileNotFoundException{
 		String xmlDeTeste = "<list>"+
 							"	<negocio>"+
 							"		<preco>43.5</preco>"+
@@ -31,7 +32,7 @@ public class LeitorXMLTest {
 	}
 	
 	@Test
-	public void carregaXmlComZeroNegocios(){
+	public void carregaXmlComZeroNegocios() throws FileNotFoundException{
 		String xmlDeTeste = "<list></list>";
 		LeitorXML leitor = new LeitorXML();
 		List<Negocio> negocios = leitor.carrega(new StringReader(xmlDeTeste));
@@ -40,7 +41,7 @@ public class LeitorXMLTest {
 	}
 	
 	@Test
-	public void carregaXmlSemPreco(){
+	public void carregaXmlSemPreco() throws FileNotFoundException{
 		String xmlDeTeste = "<list>"+
 							"	<negocio>"+
 							"		<quantidade>100</quantidade>"+
@@ -56,7 +57,7 @@ public class LeitorXMLTest {
 	}
 	
 	@Test
-	public void carregaXmlSemQuantidade(){
+	public void carregaXmlSemQuantidade() throws FileNotFoundException{
 		String xmlDeTeste = "<list>"+
 							"	<negocio>"+
 							"		<preco>10</preco>"+
@@ -72,7 +73,7 @@ public class LeitorXMLTest {
 	}
 	
 	@Test
-	public void carregaXmlMaisDeUmNegocio(){
+	public void carregaXmlMaisDeUmNegocio() throws FileNotFoundException{
 		String xmlDeTeste = "<list>"+
 							"	<negocio>"+
 							"		<preco>10</preco>"+

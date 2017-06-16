@@ -53,9 +53,9 @@ public class CandleBuilder {
 		return this;
 	}
 	
-	public Candlestick geraCandle(){
+	public Candle geraCandle(){
 		if(aberturaChamada && fechamentoChamado && minimoChamado && maximoChamado && volumeChamado && dataChamada){
-			return new Candlestick(abertura, fechamento, minimo, maximo, volume, data);
+			return new Candle(abertura, fechamento, minimo, maximo, volume, data);
 		}else{
 			throw new IllegalArgumentException();
 		}

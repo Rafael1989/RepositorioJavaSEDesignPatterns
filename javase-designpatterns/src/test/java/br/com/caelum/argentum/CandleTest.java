@@ -6,21 +6,21 @@ import java.util.Calendar;
 
 import org.junit.Test;
 
-public class CandlestickTest {
+public class CandleTest {
 
 	@Test(expected=IllegalArgumentException.class)
 	public void precoMaximoNaoPodeSerMenorQueMinimo() {
-		new Candlestick(3, 4, 4, 3, 1, Calendar.getInstance());
+		new Candle(3, 4, 4, 3, 1, Calendar.getInstance());
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void naoPodeTerDataNula(){
-		new Candlestick(3, 3, 3, 3, 3, null);
+		new Candle(3, 3, 3, 3, 3, null);
 	}
 
 	@Test
 	public void quandoAberturaIgualFechamentoEhAlta(){
-		Candlestick candlestick = new Candlestick(10, 10, 5, 10, 10, Calendar.getInstance());
+		Candle candlestick = new Candle(10, 10, 5, 10, 10, Calendar.getInstance());
 		
 		assertEquals(true, candlestick.isAlta());
 		

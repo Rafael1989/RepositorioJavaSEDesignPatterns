@@ -5,11 +5,11 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import br.com.caelum.argentum.Candlestick;
+import br.com.caelum.argentum.Candle;
 import br.com.caelum.argentum.Negocio;
-import br.com.caelum.argentum.reader.CandlestickFactory;
+import br.com.caelum.argentum.reader.CandleFactory;
 
-public class TestaCandlestickOrdemDecrescente {
+public class TestaCandleOrdemDecrescente {
 	public static void main(String[] args) {
 		
 		Calendar natal = new GregorianCalendar(2016, 11, 25);
@@ -26,8 +26,8 @@ public class TestaCandlestickOrdemDecrescente {
 		
 		List<Negocio> negocios = Arrays.asList(negocio1,negocio2,negocio3,negocio4,negocio5,negocio6);
 		
-		CandlestickFactory fabrica = new CandlestickFactory();
-		Candlestick candle = fabrica.constroiCandleParaData(hoje, negocios);
+		CandleFactory fabrica = new CandleFactory();
+		Candle candle = fabrica.constroiCandleParaData(hoje, negocios);
 		
 		System.out.println(candle);
 	}
