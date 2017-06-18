@@ -2,11 +2,14 @@ package br.com.caelum.argentum;
 
 import java.util.Calendar;
 
+import br.com.caelum.argentum.ui.Coluna;
+
 public final class Negocio implements Comparable<Negocio>{
 
 	private final double preco;
 	private final int quantidade;
 	private final Calendar data;
+	private final double volume;
 
 	public Negocio(double preco, int quantidade, Calendar data) {
 		if(quantidade > 0 && quantidade != 0 && data != null){
@@ -18,18 +21,22 @@ public final class Negocio implements Comparable<Negocio>{
 		}
 	}
 
+	@Coluna(nome="Preço", posicao=0, formato="R$ %,#.2f")
 	public double getPreco() {
 		return preco;
 	}
 
+	@Coluna(nome="Quantidade", posicao=1)
 	public int getQuantidade() {
 		return quantidade;
 	}
 
+	@Coluna(nome="Data", posicao=3, formato="%1$td/%1$tm/%1$tY")
 	public Calendar getData() {
 		return (Calendar) this.data.clone();
 	}
 	
+	@Coluna(nome="Volume", posicao=2, formato="R$ %,#.2f")
 	public double getVolume(){
 		return preco * quantidade;
 	}

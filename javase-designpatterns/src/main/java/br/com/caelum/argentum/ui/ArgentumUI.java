@@ -115,12 +115,14 @@ public class ArgentumUI {
 	}
 	
 	private void carregaDados() {
-		List<Negocio> lista = new EscolhedorDeXML().escolhe();
-		NegociosTableModel ntm = new NegociosTableModel(lista);
-		tabela.setModel(ntm);
+		List<Negocio> negocios = new EscolhedorDeXML().escolhe();
+		//NegociosTableModel ntm = new NegociosTableModel(lista);
+		//tabela.setModel(ntm);
+		ArgentumTableModel model = new ArgentumTableModel(negocios);
+		tabela.setModel(model);
 		
 		CandleFactory fabrica = new CandleFactory();
-		List<Candle> candles = fabrica.constroiCandles(lista);
+		List<Candle> candles = fabrica.constroiCandles(negocios);
 		SerieTemporal serie = new SerieTemporal(candles);
 		
 		GeradorDeGrafico gerador = new GeradorDeGrafico(serie, 2, serie.getTotal() - 1);
