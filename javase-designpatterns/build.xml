@@ -1,0 +1,31 @@
+<project name="Argentum" default="executar">
+	
+	<target name="compilar">
+		<delete dir="bin"/>
+		<mkdir dir="bin"/>
+		
+		<javac srcdir="src/main/java" destdir="bin"> 
+			<classpath>
+				<fileset dir="lib">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="empacotar" depends="compilar">
+		<mkdir dir="jar"/>
+		<jar destfile="jar/argentum.jar" basedir="bin"></jar>
+	</target>
+	
+	<target name="executar" depends="empacotar">
+		<java classname="br.com.caelum.argentum.ui.ArgentumUI" fork="true">
+			<classpath>
+				<filelist files="jar/argentum.jar"/>
+				<fileset dir="lib">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+		</java>
+	</target>
+</project>

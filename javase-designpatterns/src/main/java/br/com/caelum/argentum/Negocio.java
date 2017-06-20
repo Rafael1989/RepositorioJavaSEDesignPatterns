@@ -9,7 +9,7 @@ public final class Negocio implements Comparable<Negocio>{
 	private final double preco;
 	private final int quantidade;
 	private final Calendar data;
-	private final double volume;
+	private final double volume = 0;
 
 	public Negocio(double preco, int quantidade, Calendar data) {
 		if(quantidade > 0 && quantidade != 0 && data != null){
