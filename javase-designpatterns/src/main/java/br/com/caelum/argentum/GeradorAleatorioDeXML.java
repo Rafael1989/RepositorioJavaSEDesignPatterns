@@ -15,7 +15,7 @@ public class GeradorAleatorioDeXML {
 	public static void main(String[] args) throws FileNotFoundException {
 		Calendar data = Calendar.getInstance();
 		Random random = new Random(123);
-		List<Negocio> negocios = new ArrayList<>();
+		List<Negocio> negocios = new ArrayList<Negocio>();
 		
 		double valor = 40;
 		int quantidade = 1000;

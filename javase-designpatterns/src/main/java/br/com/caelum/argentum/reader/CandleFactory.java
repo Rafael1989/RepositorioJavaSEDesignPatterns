@@ -35,9 +35,9 @@ public class CandleFactory {
 
 	public List<Candle> constroiCandles(List<Negocio> todosNegocios) {
 		java.util.Collections.sort(todosNegocios);
-		List<Candle> candles = new ArrayList<>();
+		List<Candle> candles = new ArrayList<Candle>();
 		
-		List<Negocio> negociosDoDia = new ArrayList<>();
+		List<Negocio> negociosDoDia = new ArrayList<Negocio>();
 		Calendar dataAtual = todosNegocios.get(0).getData();
 		
 		for(Negocio negocio : todosNegocios){
@@ -46,7 +46,7 @@ public class CandleFactory {
 			}
 			if(!negocio.isMesmoDia(dataAtual)){
 				criaEGuardaCandle(candles, negociosDoDia, dataAtual);
-				negociosDoDia = new ArrayList<>();
+				negociosDoDia = new ArrayList<Negocio>();
 				dataAtual = negocio.getData();
 			}
 			negociosDoDia.add(negocio);
