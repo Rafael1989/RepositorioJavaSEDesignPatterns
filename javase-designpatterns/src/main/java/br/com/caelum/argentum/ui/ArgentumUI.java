@@ -5,12 +5,16 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Locale;
 
+import javax.management.RuntimeErrorException;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -18,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.text.MaskFormatter;
 
 import com.sun.glass.events.KeyEvent;
 
@@ -25,6 +30,7 @@ import br.com.caelum.argentum.Candle;
 import br.com.caelum.argentum.Negocio;
 import br.com.caelum.argentum.SerieTemporal;
 import br.com.caelum.argentum.grafico.GeradorDeGrafico;
+import br.com.caelum.argentum.indicadores.Indicador;
 import br.com.caelum.argentum.indicadores.IndicadorAbertura;
 import br.com.caelum.argentum.indicadores.IndicadorFechamento;
 import br.com.caelum.argentum.indicadores.IndicadorMaximo;
@@ -45,17 +51,41 @@ public class ArgentumUI {
 	private JTable tabela;
 	private JPanel painelBotoes;
 	private JTabbedPane abas;
+	private JFormattedTextField campoData;
+	private MenuIndicadores menu;
 
 	private void montaTela() {
 		preparaJanela();
+		preparaMenu();
 		preparaPainelPrincipal();
 		preparaAbas();
 		preparaTitulo();
 		preparaTabela();
 		preparaPainelBotoes();
+		preparaCampoData();
 		preparaBotaoCarregar();
 		preparaBotaoSair();
 		mostraJanela();
+	}
+
+	private void preparaMenu() {
+		menu = new MenuIndicadores();
+		janela.setJMenuBar(menu.getMenuBar());
+	}
+
+	private void preparaCampoData() {
+		try{
+			JLabel labelData = new JLabel("Apenas a partir de:");
+			
+			MaskFormatter mascara = new MaskFormatter("##/##/####");
+			mascara.setPlaceholderCharacter('_');
+			campoData = new JFormattedTextField(mascara);
+			painelBotoes.add(labelData);
+			painelBotoes.add(campoData);
+		}catch(ParseException e){
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void preparaAbas() {
@@ -113,21 +143,31 @@ public class ArgentumUI {
 		List<Negocio> negocios = new EscolhedorDeXML().escolhe();
 		//NegociosTableModel ntm = new NegociosTableModel(lista);
 		//tabela.setModel(ntm);
-		ArgentumTableModel model = new ArgentumTableModel(negocios);
-		tabela.setModel(model);
-		
-		CandleFactory fabrica = new CandleFactory();
-		List<Candle> candles = fabrica.constroiCandles(negocios);
-		SerieTemporal serie = new SerieTemporal(candles);
-		
-		GeradorDeGrafico gerador = new GeradorDeGrafico(serie, 2, serie.getTotal() - 1);
-		gerador.plotaIndicador(new MediaMovelSimples(3, new IndicadorFechamento()));
-		gerador.plotaIndicador(new MediaMovelPonderada(new IndicadorFechamento()));
-		gerador.plotaIndicador(new IndicadorAbertura());
-		gerador.plotaIndicador(new IndicadorFechamento());
-		gerador.plotaIndicador(new IndicadorMaximo());
-		
-		abas.setComponentAt(1, gerador.getPanel());
+		boolean dataValida = true;
+		if(campoData.getValue() != null && !campoData.getValue().equals("")){
+			try{
+				new FiltradorPorData(campoData.getText()).filtra(negocios);
+			}catch(RuntimeException e){
+				JOptionPane.showMessageDialog(painelPrincipal, "Favor digitar uma data válida.");
+				campoData.setValue("");
+				dataValida = false;
+			}
+		}
+		if(dataValida){
+			ArgentumTableModel model = new ArgentumTableModel(negocios);
+			tabela.setModel(model);
+			
+			CandleFactory fabrica = new CandleFactory();
+			List<Candle> candles = fabrica.constroiCandles(negocios);
+			SerieTemporal serie = new SerieTemporal(candles);
+			
+			GeradorDeGrafico gerador = new GeradorDeGrafico(serie, 2, serie.getTotal() - 1);
+			List<Indicador> indicadores = menu.getIndicadoresSelecionados();
+			for(Indicador indicador : indicadores){
+				gerador.plotaIndicador(indicador);
+			}
+			abas.setComponentAt(1, gerador.getPanel());
+		}
 	}
 
 	private void preparaBotaoSair() {
