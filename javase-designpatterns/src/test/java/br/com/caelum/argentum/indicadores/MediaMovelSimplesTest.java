@@ -1,11 +1,12 @@
 package br.com.caelum.argentum.indicadores;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import br.com.caelum.argentum.GeradorDeSerie;
 import br.com.caelum.argentum.SerieTemporal;
+import junit.framework.Assert;
 
 public class MediaMovelSimplesTest {
 
